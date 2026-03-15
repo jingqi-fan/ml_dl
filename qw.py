@@ -1,25 +1,23 @@
-def checkSubarraySum(nums, k):
+
+
+def rotate(nums, k: int) -> None:
     """
-    :type nums: List[int]
-    :type k: int
-    :rtype: bool
+    Do not return anything, modify nums in-place instead.
     """
-    d = {0: -1}
-    d2 = {0: -1}
-    s = 0
-
-    for i in range(len(nums)):
-        s += nums[i]
-        print(f'i {i}, s {s}, d2 {d2}')
-        if s in d2 and i - d2[s] > 1:
-            return True
-
-        if s not in d2:
-            d2[s] = i
-
-        if s % k in d and i - d[s % k] > 1:
-            return True
-        else:
-            d[s % k] = i
-    return False
-print(checkSubarraySum([5,0,0,0], 3))
+    n = len(nums)
+    k = k % n
+    nums.reverse()
+    l = 0
+    r = k-1
+    while l < r:
+        nums[l], nums[r] = nums[r], nums[l]
+        l += 1
+        r -= 1
+    l = k
+    r = n-1
+    while l < r:
+        nums[l], nums[r] = nums[r], nums[l]
+        l += 1
+        r -= 1
+    return nums
+print(rotate([1,2,3,4,5,6,7], 3))
